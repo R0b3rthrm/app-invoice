@@ -1,0 +1,112 @@
+
+<div class="row">  
+    <div class="col-lg-12 ">
+        <div class="jumbotron" style="background-color: white; padding:30px;">
+
+                <h2>Listado de facturas</h2>
+                <br>
+                <div class="col-lg-10 offset-lg-1">
+
+                    <table class="table table-striped" >
+                        <thead class="">
+                            <tr>
+                                <th>CODIGO</th>
+                                <th>NOMBRE CLIENTE</th>
+                                <th>ID CLIENTE</th>
+                                <th>TOTAL FACTURA</th> 
+                                <th></th> 
+                                <th></th> 
+                                <th></th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let item of listDataInvoice">
+                                <td>{{item.id}}</td>
+                                <td>{{item.nameCli}}</td>
+                                <td>{{item.idCli}}</td>
+                                <td> {{item.total}}</td>
+                                <td> <button type="button" class="btn  btn-outline-info btn-sm" (click)="viewInvoice(modalInvoice,1,item.id)">View</button></td>
+                                <td> <button type="button" class="btn  btn-info btn-sm" (click)="viewInvoice(modalInvoice,2,item.id)">Update</button></td>
+                                <td> <button type="button" class="btn  btn-danger btn-sm" (click)="removeInvoice(item.id)">Del</button></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <br>
+            <br>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<ng-template #modalInvoice let-modal>
+    <form>
+        
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Factura  # {{listViewInvoice.id}}</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row" *ngIf="typeModal==1; else viewUpdate">
+                <div class="col-sm-6">
+                    <label>Nombre Cliente:</label>
+                    <br>{{listViewInvoice.nameCli}}
+                </div>
+                <div class="col-sm-6">
+                    <label>Identificacion Cliente:</label>
+                     {{listViewInvoice.idCli}}
+                </div>
+            </div>
+
+            <ng-template #viewUpdate>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="">Nombre Cliente:</label>
+                          <input type="text" id="NameCli" class="form-control" value="{{listViewInvoice.nameCli}}"  >
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Identificacion Cliente:</label>
+                            <input type="text" id="IdCli" class="form-control" value="{{listViewInvoice.idCli}}"  >
+                          </div>
+                    </div>
+                    <div class="col-sm-4 offset-sm-8">
+                        <button type="button" class="btn btn-info" (click)="updateInvoice(modalInvoice,listViewInvoice.id)"> Actualizar </button>
+                    </div>    
+                    
+                </div>
+
+
+            </ng-template>
+           
+            <br>
+            <label for="">Detalle del Compra</label>
+            <UL class="list-group" *ngFor=" let item of listViewInvoice.invoice_Detail">
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{item.namePro}}
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            $ {{item.pricePro}}
+                        </div>
+
+                    </div>
+                </li>
+                    
+            </UL>   
+            <div class="row">
+                <div class="col-sm-6 offset-sm-6 text-right">
+                    <label>Total:</label>
+                    $ {{listViewInvoice.total}}
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close()"> Close</button>
+        </div>
+    </form>
+    </ng-template>

@@ -1,0 +1,61 @@
+
+    <div class="row">  
+        <div class="col-lg-12 ">
+            <div class="jumbotron" style="padding:30px;">
+                <h3>Nueva Factura</h3>
+                <br>
+                <form [formGroup]="invoice" (ngSubmit)="SaveInvoice()">
+                    <div class="row col-lg-8 offset-lg-2">
+                        <div class="col-lg-6">
+                            <div class="form-group" style="text-align: start;">
+                                <input type="text" class="form-control" placeholder="Nombre Cliente" formControlName = "NameCli">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group" style="text-align: start;">
+                                <input type="text" class="form-control" placeholder="Id Cliente" formControlName = "IdCli">
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div formArrayName = "Invoice_Detail"  *ngFor = "let item of getInvoice_Detail.controls; let i= index">
+                        
+                            <div class="row col-md-8 offset-md-2" [formGroupName]="i">
+                                        
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Nombre Producto {{i+1}}" formControlName="NamePro">
+                                </div>   
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" placeholder="Precio Producto   {{i+1}}" formControlName="PricePro"  (change)="sumValTol()">
+                                </div>   
+                                <div class="col-md-1" style="padding:5px;">
+                                    <button type="button" class="btn btn-info btn-danger" (click)="removeInvoice_Detail(i)">Del</button>
+                                </div>   
+                            </div>
+                        
+                        
+                    </div>
+                    <div class="row col-lg-8 offset-lg-4">
+                        
+                        <div class="col-lg-4" style="padding:5px;">
+                            <h4> Valor Total Factura</h4>
+                        </div>
+                        <div class="col-lg-5" style="padding:5px;">
+                                <input type="text" class="form-control" placeholder="$$$"  value="{{valTotal}}"  readonly>
+                        </div>
+                                
+                        <div class="col-lg-2" style="padding:5px;">
+                            <button type="button" class="btn btn-xs btn-info btn-info"  (click)="addInvoice_Detail()">Add</button>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="row col-lg-4 offset-lg-4 forgroup">
+                        <button class="btn btn-primary mr-3 btn-login" type="submit" [disabled]="invoice.invalid">Guardar Factura</button>
+                        <button class="btn btn-secondary" routerLink="/dashboard/">Volver</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>

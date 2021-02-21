@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row" style="width: 100%;">
+
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card text-center" style="padding:20px;">
+                <h3>REGISTRAR  <appa-loading *ngIf="loading"></appa-loading></h3>
+                
+                <form [formGroup]="register" (ngSubmit)="regUser()" >
+                    <div class="form-group" style="text-align: start;">
+                        <input type="text" class="form-control" placeholder="Usuario"formControlName = "user">
+                        <span class="text-danger ml-2" *ngIf="fg.user.touched && fg.user.invalid">El usuario es requerido</span>
+                    </div>
+                    <div class="form-group" style="text-align: start;">
+                        <input type="text" class="form-control" placeholder="Contraseña" type="password" formControlName = "pass">
+                        <span class="text-danger ml-2" *ngIf="fg.pass.touched && fg.pass.hasError('required')">El password es requerido</span>
+                        <span class="text-danger ml-2" *ngIf="fg.pass.touched && fg.pass.hasError('minlength')">El password debe tener mas de 6 caracteres</span>
+                       </div>  
+                    <div class="form-group" style="text-align: start;">
+                        <input type="text" class="form-control" placeholder="Confirmar Contraseña" type="password" formControlName = "confPass">
+                        <span class="text-danger ml-2" *ngIf="register.hasError('notSame')">Las Contraseñas son distintas</span>
+                    </div>  
+                    
+                    <div class="form-group" style="text-align: start;">
+                        <input type="text" class="form-control" placeholder="Email" type="email" formControlName = "email">
+                        <span class="text-danger ml-2"  *ngIf="fg.email.touched && fg.email.hasError('required')">El email es requerido</span>
+                        <span class="text-danger ml-2"  *ngIf="fg.email.touched && fg.email.invalid">El email no es valido</span>
+                    </div>  
+                    <div class="forgroup">
+                        <button class="btn btn-primary mr-3 btn-login" type="submit" [disabled]="register.invalid">Aceptar</button>
+                        <button class="btn btn-secondary" routerLink="/inicio/login">Volver</button>
+                    </div>             
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
